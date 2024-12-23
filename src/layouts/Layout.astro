@@ -1,0 +1,74 @@
+---
+import background from "../assets/background.svg";
+import "../styles/base.css";
+
+import i18next from "../i18n/i18n";
+import Header from "../components/global/Header.astro";
+
+function changeLanguage(lng: any) {
+  i18next.changeLanguage(lng); // Chuyển ngôn ngữ
+}
+
+const currentLanguage = i18next.language; // Lấy ngôn ngữ hiện tại
+const translate = i18next.getFixedT(currentLanguage);
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Phong Cách Việt",
+  description = "Tìm kiếm và đặt dịch vụ du lịch hoàn hảo: vé máy bay giá rẻ, tour du lịch trọn gói, thuê xe & khách sạn cao cấp.",
+  // image = getThumbnail("A community of music producers and enthusiasts"),
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="vi" class="min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="public/favicon.ico" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#134e4a" />
+    <link rel="canonical" href={Astro.url} />
+    <title>{title}</title>
+    <!-- <I18NHead /> -->
+    <!-- <I18NClient /> -->
+    <!-- <ViewTransitions /> -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <!-- <meta property="og:image" content={image} /> -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <!-- <meta property="twitter:image" content={image} /> -->
+  </head>
+
+  <body class="min-h-screen grid grid-rows-[auto,1fr,auto]">
+    <Header />
+    <main class="w-full">
+      <img id="background" src={background.src} alt="" fetchpriority="high" />
+      <slot />
+    </main>
+  </body>
+
+  <style>
+    #background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      filter: blur(50px);
+    }
+  </style>
+</html>

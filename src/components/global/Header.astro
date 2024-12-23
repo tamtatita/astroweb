@@ -1,0 +1,85 @@
+---
+import { Button, Select } from "antd";
+import { useTranslation } from "react-i18next";
+import i18next from "../../i18n/i18n";
+
+let lng = ""; // Ngôn ngữ mặc định
+if (typeof window !== "undefined") {
+  lng = localStorage.getItem("i18nextLng") || "vi"; // Lấy ngôn ngữ từ localStorage
+}
+
+await i18next.changeLanguage(lng); // Thay đổi ngôn ngữ trong i18next
+const t = i18next.getFixedT(lng);
+console.log(lng, "ngôn ngữ của astro");
+---
+
+<div class="border-b bg-white">
+  <div class="lg:max-w-6xl mx-auto">
+    <!-- Top Navigation -->
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center">
+        <img
+          src="/placeholder.svg"
+          alt="Phong cách Việt"
+          width={120}
+          height={32}
+          class="h-8 w-auto"
+        />
+      </a>
+
+      <span>{t("about")}</span>
+
+      <!-- Right Navigation Items -->
+      <div class="flex items-center gap-4">
+        <!-- Language Selector -->
+        <!-- <Select
+          defaultValue={i18n.language}
+          style={{ width: 120 }}
+          onChange={(value) => handleLanguageChange(value)}
+        >
+          <Select.Option value="en">English</Select.Option>
+          <Select.Option value="vi">Tiếng Việt</Select.Option>
+        </Select> -->
+
+        <!-- Year End Sale Badge -->
+        <a
+          href="/sale"
+          class="hidden md:flex items-center px-3 py-1 bg-red-100 text-red-600 rounded-full text-sm font-medium"
+        >
+          Year End Sale
+        </a>
+
+        <!-- Support -->
+        <button class="gap-2"> Hỗ trợ </button>
+
+        <!-- Partner -->
+        <button>Hợp tác với chúng tôi</button>
+
+        <!-- My Account -->
+        <button class="gap-2"> Đặt chỗ của tôi </button>
+
+        <!-- Auth buttons -->
+        <div class="flex items-center gap-2">
+          <button>Đăng Nhập</button>
+          <button>Đăng ký</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="flex items-center gap-6 h-12 text-sm">
+      <a href="/hotels" class="hover:text-blue-600"> Khách sạn </a>
+      <a href="/flights" class="hover:text-blue-600"> Vé máy bay </a>
+      <a href="/bus" class="hover:text-blue-600"> Vé xe khách </a>
+      <a href="/airport-transfer" class="hover:text-blue-600">
+        Đưa đón sân bay
+      </a>
+      <a href="/car-rental" class="hover:text-blue-600"> Cho thuê xe </a>
+      <a href="/activities" class="hover:text-blue-600">
+        Hoạt động & Vui chơi
+      </a>
+      <button class="gap-1"> More </button>
+    </nav>
+  </div>
+</div>
